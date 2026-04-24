@@ -1,209 +1,225 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>amine ov</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amine OV</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
 
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+body{
+    margin:0;
+    font-family:'Cairo',sans-serif;
+    background:#0b0f19;
+    color:white;
+}
 
-        body{
-            font-family: 'Cairo', sans-serif;
-            background: #0b0f19;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+/* HEADER */
+header{
+    text-align:center;
+    padding:20px;
+}
+.logo{
+    font-size:26px;
+    font-weight:bold;
+    color:#8b5cf6;
+}
 
-        /* NAV */
-        header{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            background: rgba(255, 255, 255, 0.03);
-        }
+/* HERO */
+.hero{
+    text-align:center;
+    padding:30px 20px;
+}
+.hero h1{
+    font-size:32px;
+}
+.hero p{
+    color:#94a3b8;
+}
 
-        .logo{
-            color: #8b5cf6;
-            font-weight: bold;
-            font-size: 24px;
-            text-transform: uppercase;
-        }
+/* ABOUT */
+.about{
+    padding:20px;
+    display:flex;
+    justify-content:center;
+}
 
-        /* HERO */
-        .hero{
-            padding: 60px 20px;
-            text-align: center;
-        }
+.about-card{
+    max-width:500px;
+    background:#111827;
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
 
-        .hero h1{
-            font-size: 36px;
-            margin-bottom: 10px;
-        }
+.about-card h2{
+    color:#8b5cf6;
+}
 
-        .hero p{
-            color: #94a3b8;
-            font-size: 18px;
-        }
+.about-card p{
+    color:#cbd5e1;
+    line-height:1.6;
+}
 
-        /* FORM SECTION */
-        .contact{
-            flex: 1;
-            padding: 40px 20px;
-            max-width: 500px;
-            margin: 0 auto;
-            width: 100%;
-        }
+.name{
+    color:#8b5cf6;
+    font-weight:bold;
+}
 
-        .contact h2{
-            margin-bottom: 25px;
-            font-size: 24px;
-            text-align: center;
-        }
+.skills{
+    margin-top:15px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
 
-        .form-group{
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+.skills span{
+    background:#1f2937;
+    padding:6px 10px;
+    border-radius:8px;
+    font-size:13px;
+}
 
-        input, textarea{
-            width: 100%;
-            padding: 15px;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            background: #1f2937;
-            color: white;
-            font-size: 16px;
-            outline: none;
-            transition: 0.3s;
-        }
+/* FORM */
+.card{
+    max-width:420px;
+    margin:30px auto;
+    background:#111827;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
 
-        input:focus, textarea:focus{
-            border-color: #8b5cf6;
-            box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
-        }
+input,textarea{
+    width:100%;
+    margin-top:10px;
+    padding:12px;
+    border-radius:10px;
+    border:none;
+    background:#1f2937;
+    color:white;
+    outline:none;
+}
 
-        textarea{
-            height: 120px;
-            resize: none;
-        }
+textarea{
+    height:120px;
+    resize:none;
+}
 
-        button{
-            width: 100%;
-            padding: 15px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 12px;
-            background: linear-gradient(45deg, #6366f1, #8b5cf6);
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
-        }
+button{
+    width:100%;
+    margin-top:15px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(45deg,#6366f1,#8b5cf6);
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
 
-        button:hover{
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
-        }
+button:hover{
+    transform:scale(1.03);
+}
 
-        button:active{
-            transform: translateY(0);
-        }
-
-        footer{
-            text-align: center;
-            padding: 20px;
-            color: #64748b;
-            font-size: 14px;
-        }
-    </style>
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:20px;
+    color:#64748b;
+    font-size:14px;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-    <div class="logo">amine ov</div>
+    <div class="logo">Amine OV</div>
 </header>
 
 <section class="hero">
-    <h1>اطلب خدمتك الآن</h1>
+    <h1>مرحباً 👋</h1>
     <p>مواقع • تطبيقات • تصميم</p>
 </section>
 
-<section class="contact">
-    <h2>إرسال طلب</h2>
-    <div class="form-group">
-        <input id="name" type="text" placeholder="اسمك الكامل">
-        <input id="phone" type="tel" placeholder="رقم الهاتف">
-        <textarea id="msg" placeholder="اشرح لنا ماذا تحتاج..."></textarea>
-        <button onclick="sendOrder()">إرسال الطلب</button>
+<!-- ABOUT -->
+<section class="about">
+    <div class="about-card">
+        <h2>👨‍💻 من أنا</h2>
+        <p>
+            أنا <span class="name">Amine</span> مطوّر مواقع وتطبيقات،
+            نحب نحول الأفكار لمشاريع حقيقية وبسيطة تخدم الناس.
+        </p>
+
+        <div class="skills">
+            <span>💻 Web Dev</span>
+            <span>🔥 Firebase</span>
+            <span>🎨 UI Design</span>
+        </div>
     </div>
 </section>
 
-<footer>© 2026 amine ov - جميع الحقوق محفوظة</footer>
+<!-- FORM -->
+<div class="card">
+    <input id="name" type="text" placeholder="اسمك">
+    <input id="phone" type="tel" placeholder="رقم الهاتف">
+    <textarea id="msg" placeholder="اشرح طلبك..."></textarea>
+    <button onclick="sendOrder()">إرسال الطلب 🚀</button>
+</div>
 
+<footer>© 2026 Amine OV</footer>
+
+<!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
 <script>
-    // الإعدادات الخاصة بك
-    const firebaseConfig = {
-      apiKey: "AIzaSyADFTTpM05oN5ypOqaNCSkdLiCZbtiA3l4",
-      authDomain: "amine-ov.firebaseapp.com",
-      projectId: "amine-ov",
-      storageBucket: "amine-ov.firebasestorage.app",
-      messagingSenderId: "27000450697",
-      appId: "1:27000450697:web:ceba8d6c320e85aebda058",
-      measurementId: "G-PDNZHNF7SW"
-    };
+const firebaseConfig = {
+  apiKey: "AIzaSyADFTTpM05oN5ypOqaNCSkdLiCZbtiA3l4",
+  authDomain: "amine-ov.firebaseapp.com",
+  projectId: "amine-ov",
+  storageBucket: "amine-ov.firebasestorage.app",
+  messagingSenderId: "27000450697",
+  appId: "1:27000450697:web:ceba8d6c320e85aebda058"
+};
 
-    // تشغيل Firebase
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-    // دالة إرسال الطلب
-    function sendOrder(){
-        let name = document.getElementById("name").value;
-        let phone = document.getElementById("phone").value;
-        let msg = document.getElementById("msg").value;
+function sendOrder(){
 
-        // التحقق من الخانات
-        if(name.trim() == "" || phone.trim() == "" || msg.trim() == ""){
-            alert("يرجى ملء جميع الخانات أولاً");
-            return;
-        }
+    let name = document.getElementById("name").value;
+    let phone = document.getElementById("phone").value;
+    let msg = document.getElementById("msg").value;
 
-        // إرسال البيانات إلى Firestore
-        db.collection("orders").add({
-            name: name,
-            phone: phone,
-            message: msg,
-            date: new Date()
-        })
-        .then(() => {
-            alert("تم إرسال طلبك بنجاح ✅");
-            // تنظيف الخانات بعد النجاح
-            document.getElementById("name").value = "";
-            document.getElementById("phone").value = "";
-            document.getElementById("msg").value = "";
-        })
-        .catch((error) => {
-            console.error("Error: ", error);
-            alert("حدث خطأ أثناء الإرسال ❌");
-        });
+    if(name=="" || phone=="" || msg==""){
+        alert("عمر كل الخانات");
+        return;
     }
+
+    db.collection("orders").add({
+        name:name,
+        phone:phone,
+        message:msg,
+        date:firebase.firestore.Timestamp.now()
+    })
+    .then(()=>{
+        alert("تم الإرسال بنجاح ✅");
+
+        document.getElementById("name").value="";
+        document.getElementById("phone").value="";
+        document.getElementById("msg").value="";
+    })
+    .catch(err=>{
+        alert("خطأ ❌");
+        console.log(err);
+    });
+}
 </script>
 
 </body>
