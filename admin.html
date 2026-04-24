@@ -8,14 +8,17 @@
         body { font-family: 'Cairo', sans-serif; background: #0f172a; color: white; padding: 20px; }
         h1 { text-align: center; color: #8b5cf6; margin-bottom: 30px; }
         .table-container { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; background: #1e293b; border-radius: 12px; overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; background: #1e293b; border-radius: 12px; overflow: hidden; min-width: 600px; }
         th, td { padding: 15px; text-align: right; border-bottom: 1px solid #334155; }
         th { background: #8b5cf6; color: white; font-weight: bold; }
         tr:hover { background: #2d3748; }
         
-        .phone-link { color: #10b981; text-decoration: none; font-weight: bold; }
+        /* روابط التواصل */
+        .contact-btns { display: flex; gap: 10px; }
+        .btn-call { background: #10b981; color: white; padding: 5px 10px; border-radius: 6px; text-decoration: none; font-size: 14px; }
+        .btn-whatsapp { background: #25D366; color: white; padding: 5px 10px; border-radius: 6px; text-decoration: none; font-size: 14px; }
         
-        /* تصميم زر الحذف */
+        /* زر الحذف */
         .btn-delete {
             background: #ef4444;
             color: white;
@@ -39,13 +42,13 @@
                 <tr>
                     <th>التاريخ</th>
                     <th>الاسم</th>
-                    <th>الهاتف</th>
+                    <th>الهاتف / تواصل</th>
                     <th>الطلب</th>
                     <th>إجراء</th>
                 </tr>
             </thead>
             <tbody id="orders-list">
-                </tbody>
+            </tbody>
         </table>
     </div>
 
@@ -65,7 +68,6 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // جلب البيانات مع إضافة زر الحذف لكل سطر
         db.collection("orders").orderBy("date", "desc").onSnapshot((querySnapshot) => {
             const list = document.getElementById("orders-list");
             list.innerHTML = ""; 
@@ -73,13 +75,19 @@
             querySnapshot.forEach((doc) => {
                 const data = doc.data();
                 const date = data.date ? data.date.toDate().toLocaleString('ar-DZ') : "غير معروف";
-                const docId = doc.id; // نحتاج ID الوثيقة لكي نعرف ماذا نحذف
+                const docId = doc.id;
+                const phone = data.phone;
 
                 list.innerHTML += `
                     <tr>
                         <td>${date}</td>
                         <td>${data.name}</td>
-                        <td><a href="tel:${data.phone}" class="phone-link">${data.phone}</a></td>
+                        <td>
+                            <div class="contact-btns">
+                                <a href="tel:${phone}" class="btn-call">إتصال 📞</a>
+                                <a href="https://wa.me/213${phone}" target="_blank" class="btn-whatsapp">واتساب 💬</a>
+                            </div>
+                        </td>
                         <td>${data.message}</td>
                         <td>
                             <button class="btn-delete" onclick="deleteOrder('${docId}')">حذف</button>
@@ -89,19 +97,13 @@
             });
         });
 
-        // دالة الحذف
         function deleteOrder(id) {
             if(confirm("هل أنت متأكد من حذف هذا الطلب؟")) {
                 db.collection("orders").doc(id).delete()
-                .then(() => {
-                    console.log("تم الحذف بنجاح");
-                })
-                .catch((error) => {
-                    alert("خطأ في الحذف: " + error);
-                });
+                .then(() => { console.log("تم الحذف"); })
+                .catch((error) => { alert("خطأ: " + error); });
             }
         }
     </script>
 </body>
 </html>
-
