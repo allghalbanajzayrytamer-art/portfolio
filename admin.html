@@ -1,161 +1,235 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>Admin Secure - Amine OV</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amine OV - Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-<style>
-body{
-    font-family:'Cairo',sans-serif;
-    background:#0b0f19;
-    color:white;
-    margin:0;
-}
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #0b0f19;
+            background: radial-gradient(circle at top right, #1e1b4b, #0b0f19);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-header{
-    text-align:center;
-    padding:20px;
-    font-size:22px;
-    color:#8b5cf6;
-    font-weight:bold;
-}
+        /* --- صفحة الدخول الزجاجية --- */
+        #loginBox {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000;
+        }
 
-.container{
-    max-width:900px;
-    margin:auto;
-    padding:20px;
-}
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
 
-.card{
-    background:#111827;
-    padding:15px;
-    margin-bottom:10px;
-    border-radius:12px;
-}
+        .glass-card h2 { margin-bottom: 25px; font-weight: 700; letter-spacing: 1px; }
 
-.name{color:#8b5cf6;font-weight:bold;}
-.phone{color:#94a3b8;font-size:14px;}
-.msg{margin-top:10px;}
+        input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            outline: none;
+            text-align: center;
+            font-size: 16px;
+            transition: 0.3s;
+        }
 
-button{
-    margin-top:10px;
-    padding:8px 12px;
-    border:none;
-    border-radius:8px;
-    background:#ef4444;
-    color:white;
-    cursor:pointer;
-}
-button:hover{background:#dc2626;}
+        input:focus { border-color: var(--primary); background: rgba(255, 255, 255, 0.15); }
 
-/* login screen */
-#loginBox{
-    position:fixed;
-    top:0;left:0;
-    width:100%;
-    height:100%;
-    background:#0b0f19;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-}
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: var(--primary);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 17px;
+            transition: 0.3s;
+        }
 
-input{
-    padding:12px;
-    border-radius:10px;
-    border:none;
-    outline:none;
-    width:250px;
-    margin-top:10px;
-}
+        .btn-login:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4); }
 
-.loginBtn{
-    background:#8b5cf6;
-    margin-top:10px;
-    cursor:pointer;
-}
-</style>
+        /* --- لوحة التحكم --- */
+        #adminContent { display: none; padding: 20px; }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto 30px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logout-btn {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid #ef4444;
+            padding: 5px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .container { max-width: 900px; margin: auto; }
+
+        .order-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 15px;
+            transition: 0.3s;
+        }
+
+        .order-card:hover { background: rgba(255, 255, 255, 0.08); }
+
+        .order-info { margin-bottom: 15px; }
+        .order-name { color: var(--primary); font-weight: bold; font-size: 18px; }
+        .order-phone { color: #94a3b8; font-size: 14px; }
+        .order-msg { margin-top: 10px; line-height: 1.6; }
+
+        .del-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- LOGIN -->
-<div id="loginBox">
-    <h2>🔐 دخول لوحة التحكم</h2>
-    <input type="password" id="pass" placeholder="أدخل كلمة السر">
-    <button class="loginBtn" onclick="checkPass()">دخول</button>
-</div>
+    <div id="loginBox">
+        <div class="glass-card">
+            <h2>🔐 Amine OV</h2>
+            <input type="email" id="email" placeholder="البريد الإلكتروني">
+            <input type="password" id="pass" placeholder="كلمة المرور">
+            <button class="btn-login" onclick="login()">تسجيل الدخول</button>
+        </div>
+    </div>
 
-<!-- ADMIN CONTENT -->
-<div id="adminContent" style="display:none;">
+    <div id="adminContent">
+        <header>
+            <h2>لوحة التحكم 🚀</h2>
+            <button class="logout-btn" onclick="logout()">خروج</button>
+        </header>
 
-<header>لوحة التحكم 🚀</header>
+        <div class="container" id="orders">
+            </div>
+    </div>
 
-<div class="container" id="orders"></div>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
-</div>
+    <script>
+        // إعدادات Firebase الخاصة بك
+        const firebaseConfig = {
+          apiKey: "AIzaSyADFTTpM05oN5ypOqaNCSkdLiCZbtiA3l4",
+          authDomain: "amine-ov.firebaseapp.com",
+          projectId: "amine-ov",
+          storageBucket: "amine-ov.firebasestorage.app",
+          messagingSenderId: "27000450697",
+          appId: "1:27000450697:web:ceba8d6c320e85aebda058"
+        };
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
 
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyADFTTpM05oN5ypOqaNCSkdLiCZbtiA3l4",
-  authDomain: "amine-ov.firebaseapp.com",
-  projectId: "amine-ov",
-  storageBucket: "amine-ov.firebasestorage.app",
-  messagingSenderId: "27000450697",
-  appId: "1:27000450697:web:ceba8d6c320e85aebda058"
-};
+        // وظيفة الدخول بالإيميل
+        function login() {
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('pass').value;
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+            auth.signInWithEmailAndPassword(email, pass)
+                .catch(error => {
+                    alert("خطأ في الدخول: " + error.message);
+                });
+        }
 
-/* 🔐 password check */
-function checkPass(){
-    let p = document.getElementById("pass").value;
-
-    if(p === "A7m!n-OV@2026"){
-        document.getElementById("loginBox").style.display="none";
-        document.getElementById("adminContent").style.display="block";
-        loadOrders();
-    }else{
-        alert("❌ كلمة السر خاطئة");
-    }
-}
-
-/* load orders */
-function loadOrders(){
-    const container = document.getElementById("orders");
-    container.innerHTML="";
-
-    db.collection("orders").orderBy("date","desc")
-    .onSnapshot(snapshot=>{
-        container.innerHTML="";
-
-        snapshot.forEach(doc=>{
-            let d = doc.data();
-
-            container.innerHTML += `
-                <div class="card">
-                    <div class="name">${d.name}</div>
-                    <div class="phone">${d.phone}</div>
-                    <div class="msg">${d.message}</div>
-                    <button onclick="deleteOrder('${doc.id}')">حذف</button>
-                </div>
-            `;
+        // مراقبة حالة المستخدم (إذا مسجل دخول أو لا)
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                document.getElementById('loginBox').style.display = 'none';
+                document.getElementById('adminContent').style.display = 'block';
+                loadOrders();
+            } else {
+                document.getElementById('loginBox').style.display = 'flex';
+                document.getElementById('adminContent').style.display = 'none';
+            }
         });
-    });
-}
 
-function deleteOrder(id){
-    db.collection("orders").doc(id).delete();
-}
-</script>
+        // خروج
+        function logout() {
+            auth.signOut();
+        }
 
+        // جلب الطلبات من Firestore
+        function loadOrders() {
+            const container = document.getElementById('orders');
+            
+            db.collection("orders").orderBy("date", "desc")
+            .onSnapshot(snapshot => {
+                container.innerHTML = "";
+                snapshot.forEach(doc => {
+                    let d = doc.data();
+                    container.innerHTML += `
+                        <div class="order-card">
+                            <div class="order-info">
+                                <div class="order-name">👤 ${d.name}</div>
+                                <div class="order-phone">📞 ${d.phone}</div>
+                                <div class="order-msg">💬 ${d.message}</div>
+                            </div>
+                            <button class="del-btn" onclick="deleteOrder('${doc.id}')">حذف الطلب</button>
+                        </div>
+                    `;
+                });
+            });
+        }
+
+        // حذف طلب
+        function deleteOrder(id) {
+            if(confirm("هل أنت متأكد من حذف هذا الطلب؟")) {
+                db.collection("orders").doc(id).delete();
+            }
+        }
+    </script>
 </body>
 </html>
