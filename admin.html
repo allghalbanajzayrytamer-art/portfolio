@@ -9,7 +9,7 @@
     <style>
         :root {
             --primary: #8b5cf6;
-            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-bg: rgba(0, 0, 0, 0.6); /* خلفية غامقة للوضوح */
             --glass-border: rgba(255, 255, 255, 0.1);
         }
 
@@ -17,18 +17,17 @@
 
         body {
             font-family: 'Cairo', sans-serif;
-            background: #0b0f19;
-            background: radial-gradient(circle at top right, #1e1b4b, #0b0f19);
+            background: #05070a; /* خلفية سوداء عميقة */
             color: white;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
-        /* --- صفحة الدخول الزجاجية --- */
+        /* --- صفحة الدخول (Glassmorphism Dark) --- */
         #loginBox {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+            /* خلفية غامقة مع صورة خفيفة */
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+                        url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
             display: flex; justify-content: center; align-items: center;
             z-index: 1000;
         }
@@ -40,29 +39,28 @@
             border: 1px solid var(--glass-border);
             padding: 40px;
             border-radius: 24px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
             width: 90%;
             max-width: 400px;
             text-align: center;
         }
 
-        .glass-card h2 { margin-bottom: 25px; font-weight: 700; letter-spacing: 1px; }
+        .glass-card h2 { margin-bottom: 25px; font-weight: 700; color: #fff; }
 
         input {
             width: 100%;
             padding: 14px;
             margin-bottom: 15px;
             border-radius: 12px;
-            border: 1px solid var(--glass-border);
-            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
             color: white;
             outline: none;
             text-align: center;
             font-size: 16px;
-            transition: 0.3s;
         }
 
-        input:focus { border-color: var(--primary); background: rgba(255, 255, 255, 0.15); }
+        input:focus { border-color: var(--primary); background: rgba(255, 255, 255, 0.1); }
 
         .btn-login {
             width: 100%;
@@ -77,7 +75,7 @@
             transition: 0.3s;
         }
 
-        .btn-login:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4); }
+        .btn-login:hover { background: #7c3aed; transform: translateY(-2px); }
 
         /* --- لوحة التحكم --- */
         #adminContent { display: none; padding: 20px; }
@@ -92,44 +90,38 @@
             border-bottom: 1px solid var(--glass-border);
         }
 
-        .logout-btn {
-            background: rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-            border: 1px solid #ef4444;
-            padding: 5px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
         .container { max-width: 900px; margin: auto; }
 
         .order-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--glass-border);
             padding: 20px;
             border-radius: 16px;
             margin-bottom: 15px;
+            position: relative;
+        }
+
+        .order-name { color: var(--primary); font-weight: bold; font-size: 18px; margin-bottom: 5px; }
+        .order-phone { color: #94a3b8; font-size: 14px; margin-bottom: 10px; }
+        .order-msg { line-height: 1.6; color: #e2e8f0; }
+
+        .del-btn {
+            margin-top: 15px;
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border: 1px solid #ef4444;
+            padding: 6px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
             transition: 0.3s;
         }
 
-        .order-card:hover { background: rgba(255, 255, 255, 0.08); }
+        .del-btn:hover { background: #ef4444; color: white; }
 
-        .order-info { margin-bottom: 15px; }
-        .order-name { color: var(--primary); font-weight: bold; font-size: 18px; }
-        .order-phone { color: #94a3b8; font-size: 14px; }
-        .order-msg { margin-top: 10px; line-height: 1.6; }
-
-        .del-btn {
-            background: #ef4444;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 14px;
+        .logout-btn {
+            background: none; border: 1px solid #4b5563; color: #9ca3af;
+            padding: 5px 12px; border-radius: 8px; cursor: pointer;
         }
     </style>
 </head>
@@ -137,10 +129,10 @@
 
     <div id="loginBox">
         <div class="glass-card">
-            <h2>🔐 Amine OV</h2>
+            <h2>🔐 Amine OV Admin</h2>
             <input type="email" id="email" placeholder="البريد الإلكتروني">
             <input type="password" id="pass" placeholder="كلمة المرور">
-            <button class="btn-login" onclick="login()">تسجيل الدخول</button>
+            <button class="btn-login" onclick="login()">دخول آمن</button>
         </div>
     </div>
 
@@ -173,18 +165,16 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // وظيفة الدخول بالإيميل
+        // تسجيل الدخول
         function login() {
             const email = document.getElementById('email').value;
             const pass = document.getElementById('pass').value;
 
             auth.signInWithEmailAndPassword(email, pass)
-                .catch(error => {
-                    alert("خطأ في الدخول: " + error.message);
-                });
+                .catch(error => alert("خطأ في الدخول: " + error.message));
         }
 
-        // مراقبة حالة المستخدم (إذا مسجل دخول أو لا)
+        // مراقبة الجلسة
         auth.onAuthStateChanged(user => {
             if (user) {
                 document.getElementById('loginBox').style.display = 'none';
@@ -196,27 +186,21 @@
             }
         });
 
-        // خروج
-        function logout() {
-            auth.signOut();
-        }
+        // تسجيل الخروج
+        function logout() { auth.signOut(); }
 
-        // جلب الطلبات من Firestore
+        // جلب الطلبات
         function loadOrders() {
-            const container = document.getElementById('orders');
-            
-            db.collection("orders").orderBy("date", "desc")
-            .onSnapshot(snapshot => {
+            db.collection("orders").orderBy("date", "desc").onSnapshot(snapshot => {
+                const container = document.getElementById('orders');
                 container.innerHTML = "";
                 snapshot.forEach(doc => {
-                    let d = doc.data();
+                    const d = doc.data();
                     container.innerHTML += `
                         <div class="order-card">
-                            <div class="order-info">
-                                <div class="order-name">👤 ${d.name}</div>
-                                <div class="order-phone">📞 ${d.phone}</div>
-                                <div class="order-msg">💬 ${d.message}</div>
-                            </div>
+                            <div class="order-name">👤 ${d.name}</div>
+                            <div class="order-phone">📞 ${d.phone}</div>
+                            <div class="order-msg">💬 ${d.message}</div>
                             <button class="del-btn" onclick="deleteOrder('${doc.id}')">حذف الطلب</button>
                         </div>
                     `;
@@ -224,9 +208,9 @@
             });
         }
 
-        // حذف طلب
+        // حذف الطلب
         function deleteOrder(id) {
-            if(confirm("هل أنت متأكد من حذف هذا الطلب؟")) {
+            if(confirm("هل أنت متأكد من حذف الطلب؟")) {
                 db.collection("orders").doc(id).delete();
             }
         }
